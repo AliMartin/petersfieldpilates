@@ -1,0 +1,94 @@
+.node-gallery {
+  text-align: center;
+}
+
+.node-gallery .field-name-field-image img {
+  margin: 30px auto;
+}
+
+.view-gallery h1 {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.view-gallery .views-field-field-image {
+  margin-bottom: 10px;
+}
+
+.view-gallery a.btn,
+.view-gallery a.btn:visited {
+	color: #61993c;
+	background-color: #fff;
+	border: 1px solid #61993c;
+}
+
+.view-gallery a.btn:hover,
+.view-gallery a.btn:active {
+	color: #fff;
+	border: 1px solid #61993c;
+	background-color: #61993c;
+}
+
+
+
+/* Waterfall */
+
+#waterfall { margin: 30px; }
+
+ul#waterfall_views li {
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transform: translateY(100px);
+  list-style: none;
+  margin: 20px;
+}
+
+ul#waterfall_views li.show {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.3s, top 1s;
+}
+
+ul#waterfall_views li > div.waterfall-item {
+  border-radius: 0; 
+  -webkit-border-radius: 0; 
+  -moz-border-radius: 0;
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #61993c;
+  box-shadow: 0px 3px 3px rgba(0,0,0,0.2);
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+}
+
+ul#waterfall_views li > div.waterfall-item:hover {
+  background-color: #fff;  
+  transform: translateY(-10px);
+  border: 1px solid #61993c;
+  box-shadow: 0px 3px 3px rgba(0,0,0,0.2);
+  transition: all 0.3s;
+}
+
+
+
+/* Colorbox view */
+  
+.page-gallery #colorbox {
+  background-color: #fff;
+}
+
+.page-gallery #colorbox h2 {
+  display: none;
+}
+
+.page-gallery #colorbox .field-name-field-image img {
+  margin: 0px 0px 30px 0px;
+}
+
+.page-gallery #colorbox .field-name-body {
+  padding: 0 30px;
+}

@@ -1,0 +1,76 @@
+/**
+ * Instagram news page.
+ */
+
+@media only screen and (max-width : 991px) {
+	.view-instagrams {
+		text-align: center;
+	}
+}
+
+.view-instagrams br {
+	display: none;
+}
+
+.view-instagrams .views-row {
+	overflow: hidden;
+	margin-bottom: 60px;
+}
+
+.view-instagrams .views-field-images {
+	float: left;
+}
+
+@media only screen and (max-width : 991px) {
+	.view-instagrams .views-field-images {
+		float: inherit;
+	}
+}
+
+.view-instagrams img {
+	width: 300px;
+	height: auto;
+	margin-right: 15px;
+}
+
+@media only screen and (max-width : 991px) {
+	.view-instagrams img {
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 15px;
+	}
+}
+
+.view-instagrams .views-field-nothing {
+	overflow: auto;
+}
+
+.view-instagrams h3 {
+	margin-top: 0;
+}
+
+.view-instagrams .views-field-caption,
+.view-instagrams .drupagram-likes {
+	margin-bottom: 10px;
+}
+
+.view-instagrams .drupagram-likes-count-label {
+	display: none;
+}
+
+.view-instagrams .drupagram-likes-count-value {
+	display: inline-block;
+}
+
+.view-instagrams .drupagram-likes-count-value::before {
+	content: "\F004";
+    font-family: 'Font Awesome 5 Free';
+    font-size: 14px;
+    font-weight: 400;
+    color: #61993c;
+	display: inline-block;
+	float: left;
+	margin-right: 10px;
+	width: 15px;
+}

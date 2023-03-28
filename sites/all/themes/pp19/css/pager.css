@@ -1,0 +1,65 @@
+/*
+ * Pagination
+ */
+
+.pagination {
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+.pagination > li > a,
+.pagination > li > span {
+	color: #515ca6;
+	background-color: #fff;
+	border: 1px solid #515ca6;
+}
+
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+  color: #fff;
+  background-color: #515ca6;
+  border-color: #515ca6;
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  color: #fff;
+  background-color: #515ca6;
+  border-color: #515ca6;
+}
+
+.pagination > .disabled > span,
+.pagination > .disabled > span:hover,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > a,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > a:focus {
+  color: #777777;
+  background-color: #fff;
+  border-color: #515ca6;
+}
+
+.pager li > a,
+.pager li > span {
+  background-color: #fff;
+  border: 1px solid #515ca6;
+}
+
+.pager li > a:hover,
+.pager li > a:focus {
+  background-color: #515ca6;
+}
+
+.pager .disabled > a,
+.pager .disabled > a:hover,
+.pager .disabled > a:focus,
+.pager .disabled > span {
+  color: #777777;
+  background-color: #fff;
+}

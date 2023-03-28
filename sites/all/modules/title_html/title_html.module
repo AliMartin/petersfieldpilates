@@ -1,0 +1,174 @@
+
+<?php
+
+/**
+ * Implements hook_preprocess_HOOK()
+ */
+function title_html_preprocess_node(&$variables) {
+  $node = $variables['node'];
+  // Get replacement title field if any.
+  $title_field_instance = title_field_replacement_get_label_field('node', $node->type);
+  if (!empty($title_field_instance)) {
+    // Get title field value
+    $items = field_get_items('node', $node, $title_field_instance['field_name']);
+    // Get renderable value having correctly formatter as per text format, if any.
+    $title = field_view_value('node', $node, $title_field_instance['field_name'], $items[0]);
+    // Set it as node title.
+    $variables['title'] = render($title);
+  }
+}
+
+/**
+ * Implements hook_menu_alter()
+ */
+function title_html_menu_alter(&$items) {
+  // Replace node page callback.
+  // We should not replace node view page callback if page_manager module is active
+  // and node_view page handler is enabled.
+  if (!module_exists('page_manager') ||
+    (module_exists('page_manager') && variable_get('page_manager_node_view_disabled', TRUE))
+  ) {
+    $items['node/%node']['page callback'] = 'title_html_node_page_view';
+  }
+  $items['node/%node']['title callback'] = 'title_html_node_page_title';
+  if (isset($items['node/%node/clone/%clone_token'])) {
+    $items['node/%node/clone/%clone_token']['page callback'] = 'title_html_clone_node_check';
+  }
+}
+
+/**
+ * Page callback to replace node_page_view()
+ */
+function title_html_node_page_view($node) {
+  // First let get original title.
+  $output = node_page_view($node);
+  // Then correctly format title.
+  $title_field_instance = title_field_replacement_get_label_field('node', $node->type);
+  if (!empty($title_field_instance)) {
+    $items = field_get_items('node', $node, $title_field_instance['field_name']);
+    $title = field_view_value('node', $node, $title_field_instance['field_name'], $items[0]);
+    drupal_set_title(render($title), PASS_THROUGH);
+  }
+  return $output;
+}
+
+/**
+ * Page callback to replace node_page_title()
+ */
+function title_html_node_page_title($node) {
+  $title_field_instance = title_field_replacement_get_label_field('node', $node->type);
+  if (!empty($title_field_instance)) {
+    return title_html_make_plain_title($node->title);
+  }
+  else {
+    return node_page_title($node);
+  }
+}
+
+/**
+ * Alter node clone actions to set HTML titles.
+ */
+function title_html_clone_node_check($node) {
+  $result = clone_node_check($node);
+  if (isset($result['#form_id']) && $result['#form_id'] == $node->type .'_node_form') {
+    // It means clone_node_prepopulate() handled this request.
+    $title_field_instance = title_field_replacement_get_label_field('node', $node->type);
+    if (!empty($title_field_instance)) {
+      $items = field_get_items('node', $node, $title_field_instance['field_name']);
+      $title = field_view_value('node', $node, $title_field_instance['field_name'], $items[0]);
+      drupal_set_title(render($title), PASS_THROUGH);
+    }
+  }
+  return $result;
+}
+
+/**
+ * Implements hook_tokens_alter()
+ */
+function title_html_tokens_alter(&$replacements, $context) {
+  // Correct token replacement for node:title by correctly rendering title field
+  // or node_tokens() will sanitize title, causing to lose HTML formatting.
+  if ($context['type'] == 'node' && isset($context['tokens']['title']) && isset($context['data']['node'])) {
+    $original = $context['tokens']['title'];
+    $node = $context['data']['node'];
+    $title_field_instance = title_field_replacement_get_label_field('node', $node->type);
+    if (!empty($title_field_instance)) {
+      $items = field_get_items('node', $node, $title_field_instance['field_name']);
+      $title = field_view_value('node', $node, $title_field_instance['field_name'], $items[0]);
+      $replacements[$original] = render($title);
+    }
+  }
+}
+
+/**
+ * Implements hook_node_view()
+ */
+function title_html_node_view($node, $view_mode, $langcode) {
+  // It is required to work with page manager/panelizer.
+  $title_field_instance = title_field_replacement_get_label_field('node', $node->type);
+  if (!empty($title_field_instance)) {
+    $items = field_get_items('node', $node, $title_field_instance['field_name']);
+    $title = field_view_value('node', $node, $title_field_instance['field_name'], $items[0]);
+    drupal_set_title(render($title), PASS_THROUGH);
+  }
+}
+
+/**
+ * Implemments hook_menu_breadcrumb_alter()
+ */
+function title_html_menu_breadcrumb_alter(&$active_trail, $item) {
+  // Remove tags from node title in breadcrumb.
+  foreach ($active_trail as &$item) {
+    if (isset($item['router_path']) && $item['router_path'] == 'node/%') {
+      $node = null;
+
+      if (isset($item['map'][1])) {
+        $node = $item['map'][1];
+      }
+
+      if (!is_object($node)) continue;
+
+      $title_field_instance = title_field_replacement_get_label_field('node', $node->type);
+      if (!empty($title_field_instance)) {
+        $item['title'] = title_html_make_plain_title($item['title']);
+      }
+    }
+  }
+}
+
+/**
+ * Implememnts hook_views_pre_render()
+ */
+function title_html_views_pre_render(&$view) {
+  // Alter admin views to strip tags from node title
+  if ($view->name == 'admin_views_node' && $view->current_display == 'system_1') {
+    foreach ($view->result as $key => $item) {
+      $view->result[$key]->node_title = strip_tags(html_entity_decode($item->node_title));
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ * Original theme hook 'print' is from print module.
+ */
+function title_html_preprocess_print(&$variables) {
+  $node = $variables['node'];
+  $title_field_instance = title_field_replacement_get_label_field('node', $node->type);
+  if (!empty($title_field_instance)) {
+    $variables['print_title'] = title_html_make_plain_title($node->title);
+  }
+}
+
+/**
+ * Create plain text title without HTML tags which can be used in
+ * window title, breadcrumb,, drupal message, et.
+ */
+function title_html_make_plain_title($title) {
+  // Replace break tag with white space so words will not be joined
+  // when we remove tags in next step.
+  $title = preg_replace('#<br\\s*/>#', ' ', $title);
+  // Remove new line characters to avoid breaking of breadcrumb styling.
+  // We will show plain text in breadcrumb without any tag.
+  return strip_tags(str_replace(array("\n","\r", ''), '',$title));
+}

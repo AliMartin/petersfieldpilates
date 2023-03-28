@@ -1,0 +1,76 @@
+footer {
+	background-color: #61993c;
+	color: #fff;
+	-webkit-box-shadow: 0px -3px 0px 0px rgba(0,0,0,0.1);
+	-moz-box-shadow: 0px -3px 0px 0px rgba(0,0,0,0.1);
+	box-shadow: 0px -3px 0px 0px rgba(0,0,0,0.1);
+}
+
+footer.footer {
+	padding-bottom: 120px;
+}
+
+.footer {
+	border-top: inherit;
+}
+
+.footer h2 {
+	font-size: 24px;
+	line-height: 24px;
+	margin-bottom: 5px;
+}
+
+.footer-info ul {
+	padding-left: 20px;
+	font-size: 12px;
+	line-height: 18px;
+	margin-bottom: 0;
+}
+
+.footer-text {
+	margin: 30px 0;
+}
+
+.footer-text div {
+  margin-bottom: 2px;
+}
+
+.footer-text i {
+  margin-right: 6px;
+}
+
+.professional-logos div {
+	display: inline-block;
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+
+.professional-logos .exercise-professional img {
+	height: 75px;
+	width: auto;
+}
+
+.professional-logos .body-control img {
+	height: 50px;
+	width: auto;
+}
+
+@media only screen and (max-width: 600px) {
+	.professional-logos .exercise-professional img {height: 60px;}
+	.professional-logos .body-control 		   img {height: 40px;}
+}
+
+footer a,
+footer a:visited {
+	color: #fff;
+	text-decoration: none;
+	border-bottom: 1px dotted #61993c;
+}
+
+footer a:hover,
+footer a:focus,
+footer a:active {
+	color: #fff;
+	text-decoration: none;
+	border-bottom: 1px dotted #fff;
+}
