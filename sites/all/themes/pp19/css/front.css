@@ -11,7 +11,7 @@ body.front .field-name-field-subtitle {
 body.front .field-name-title-field h1 {
 	font-size: 78px;
 	line-height: 78px;
-	margin-bottom: 250px;
+	margin-bottom: 100px;
 }
 
 body.front .green {
@@ -94,6 +94,20 @@ body.front .main-content a.btn:active {
 }
 
 
+.front-page-message {
+	max-width: 420px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #fff;
+	padding: 20px;
+	text-align: center;
+	border-radius: 10px;
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.front-page-message h2 {
+	margin-top: 0;
+}
 
 
 @media only screen and (max-width : 449px) {
