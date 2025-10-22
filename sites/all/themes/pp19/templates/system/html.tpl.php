@@ -57,7 +57,12 @@
 <html<?php print $html_attributes;?><?php print $rdf_namespaces;?>>
 <head>
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Raleway:200,400" rel="stylesheet"> 
+
+  <!--
   <link rel="stylesheet" href="https://kit.fontawesome.com/86a263718e.css" crossorigin="anonymous">
+  -->
+  <script src="https://kit.fontawesome.com/882267a28e.js" crossorigin="anonymous"></script>
+
   <link rel="profile" href="<?php print $grddl_profile; ?>" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
